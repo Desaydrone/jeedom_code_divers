@@ -8,19 +8,27 @@ $port		= '8086';
 $base		= 'BDD_INFLUXDB_CIBLE';        // nom de la base (il faut qu'elle existe)
 $table		= 'TABLE_BDD';        // nom de la table
 
+$c1='Bureau';
+$c2='Chambre';
+$c3='Cuisine';
+$c4='Salon';
+$c5='SalledeBain';
+$c6='Salon';
+$c7='SalleAManger';
+
 //Entête de la réquete
 $req_base='curl -i -XPOST "'.$host.':'.$port.'/write?db='.$base.'" --data-binary \''.$table.',';
 
 // RECUPERATION TEMPERATURE
 // ID des commandes reperez les ID des commandes 
 // et donner un nom dans la table
-$cmd = cmd::byId(4109);$input1  = $cmd->execCmd();$c1='Bureau';
-$cmd = cmd::byId(4101);$input2  = $cmd->execCmd();$c2='Chambre';
-$cmd = cmd::byId(4117);$input3  = $cmd->execCmd();$c3='Cuisine';
-$cmd = cmd::byId(4091);$input4  = $cmd->execCmd();$c4='Salon';
-$cmd = cmd::byId(3142);$input5  = $cmd->execCmd();$c5='SalledeBain';
-$cmd = cmd::byId(2172);$input6  = $cmd->execCmd();$c6='Salon';
-//$cmd = cmd::byId(2173);$input7  = $cmd->execCmd();$c7='SalleAManger';
+$cmd = cmd::byId(4109);$input1  = $cmd->execCmd();
+$cmd = cmd::byId(4101);$input2  = $cmd->execCmd();
+$cmd = cmd::byId(4117);$input3  = $cmd->execCmd();
+$cmd = cmd::byId(4091);$input4  = $cmd->execCmd();
+$cmd = cmd::byId(3142);$input5  = $cmd->execCmd();
+$cmd = cmd::byId(2172);$input6  = $cmd->execCmd();
+//$cmd = cmd::byId(2173);$input7  = $cmd->execCmd();
 
 
 //Definitition du tag
