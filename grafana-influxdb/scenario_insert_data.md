@@ -1,3 +1,5 @@
+```php
+
 // EXEMPLE D'un bloc code dans un scénario pour implémenter une table
 // dans influxdb depuis jeedom (sans le plugin-influxdb)
 
@@ -54,3 +56,4 @@ $output0 = shell_exec($req.$req2);
 $req2 = 'valeur=conso_luminaire '.$c4.'='.$input3.'\' ';
 $output0 = shell_exec($req.$req2);
 
+```
