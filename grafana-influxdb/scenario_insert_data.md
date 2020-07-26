@@ -3,13 +3,13 @@
 // EXEMPLE D'un bloc code dans un scénario pour implémenter une table
 // dans influxdb depuis jeedom (sans le plugin-influxdb)
 
-$host		= 'IP_SERVEUR_INFLUXDB'; //c'est l'ip de la machine qui héberge influx
+$host		= 'IP_SERVEUR_INFLUXDV'; //c'est l'ip de la machine qui héberge influx
 $port		= '8086';
-$base		= 'BDD_INLUFXDB';        // nom de la base (il faut qu'elle existe)
-$table		= 'TABLE_DANS_LA_BDD';        // nom de la table
+$base		= 'BDD_INFLUXDB_CIBLE';        // nom de la base (il faut qu'elle existe)
+$table		= 'TABLE_BDD';        // nom de la table
 
 //Entête de la réquete
-$req='curl -i -XPOST "'.$host.':'.$port.'/write?db='.$base.'" --data-binary \''.$table.',';
+$req_base='curl -i -XPOST "'.$host.':'.$port.'/write?db='.$base.'" --data-binary \''.$table.',';
 
 // RECUPERATION TEMPERATURE
 // ID des commandes reperez les ID des commandes 
@@ -23,10 +23,14 @@ $cmd = cmd::byId(2172);$input6  = $cmd->execCmd();$c6='Salon';
 //$cmd = cmd::byId(2173);$input7  = $cmd->execCmd();$c7='SalleAManger';
 
 
-$req2='valeur=temperature '.$c1.'='.$input1.','.$c2.'='.$input2.','.$c3.'='.$input3.','.$c4.'='.$input4.','.$c5.'='.$input5.'\' ';
+//Definitition du tag
+$requete_tag ='valeur=temperature ';
 
-$scenario->setLog(' Requete : '.$req.$req2);
-$output0 = shell_exec($req.$req2);
+//requête contenant les données à ajouter
+$requete=$c1.'='.$input1.','.$c2.'='.$input2.','.$c3.'='.$input3.','.$c4.'='.$input4.','.$c5.'='.$input5.'\' ';
+
+$scenario->setLog(' Requete : '.$req_base.$requete_tag.$requete);
+
 $scenario->setLog('DEBUG RETOUR Temperature: '.$output0);
 
 //RECUPERATION HUMIDITE
@@ -37,8 +41,9 @@ $cmd = cmd::byId(4102);$input2  = $cmd->execCmd();
 $cmd = cmd::byId(4118);$input3  = $cmd->execCmd();
 $cmd = cmd::byId(4092);$input4  = $cmd->execCmd();
 
-$req2 = 'valeur=humidite '.$c1.'='.$input1.','.$c2.'='.$input2.','.$c3.'='.$input3.','.$c4.'='.$input4.'\' ';
-$output0 = shell_exec($req.$req2);
+$requete_tag = 'valeur=humidite ';
+$requete = $c1.'='.$input1.','.$c2.'='.$input2.','.$c3.'='.$input3.','.$c4.'='.$input4.'\' ';
+$output0 = shell_exec($req_base.$requete_tag.$requete);
 $scenario->setLog('DEBUG RETOUR Temperature: '.$output0);
 
 //RECUPERATION Info electrique
@@ -48,12 +53,18 @@ $cmd = cmd::byId(4398);$input1  = $cmd->execCmd();
 $cmd = cmd::byId(4401);$input2  = $cmd->execCmd();
 $cmd = cmd::byId(4399);$input3  = $cmd->execCmd();
 
+$requete_tag = 'valeur=puissance_electrique ';
+$requete = $c4.'='.$input1.'\' ';
+$output0 = shell_exec($req_base.$requete_tag.$requete);
 
-$req2='valeur=puissance_electrique '.$c4.'='.$input1.'\' ';
-$output0 = shell_exec($req.$req2);
-$req2 = 'valeur=conso_multimedia '.$c4.'='.$input2.'\' ';
-$output0 = shell_exec($req.$req2);
-$req2 = 'valeur=conso_luminaire '.$c4.'='.$input3.'\' ';
-$output0 = shell_exec($req.$req2);
+$requete_tag = 'valeur=conso_multimedia ';
+$requete = $c4.'='.$input2.'\' ';
+$output0 = shell_exec($req_base.$requete_tag.$requete);
+
+$requete_tag = 'valeur=conso_luminaire ';
+$requete = $c4.'='.$input3.'\' ';
+$output0 = shell_exec($req_base.$requete_tag.$requete);
+$scenario->setLog('DEBUG RETOUR Temperature: '.$output0);
+
 
 ```
