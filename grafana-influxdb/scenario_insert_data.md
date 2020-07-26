@@ -1,5 +1,5 @@
 ```php
-
+// SCRIPT Original by Olive
 // EXEMPLE D'un bloc code dans un scénario pour implémenter une table
 // dans influxdb depuis jeedom (sans le plugin-influxdb)
 
