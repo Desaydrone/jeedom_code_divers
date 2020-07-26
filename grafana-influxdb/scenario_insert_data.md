@@ -38,7 +38,7 @@ $requete_tag ='valeur=temperature ';
 $requete=$c1.'='.$input1.','.$c2.'='.$input2.','.$c3.'='.$input3.','.$c4.'='.$input4.','.$c5.'='.$input5.'\' ';
 
 $scenario->setLog(' Requete : '.$req_base.$requete_tag.$requete);
-
+$output0 = shell_exec($req_base.$requete_tag.$requete);
 $scenario->setLog('DEBUG RETOUR Temperature: '.$output0);
 
 //RECUPERATION HUMIDITE
